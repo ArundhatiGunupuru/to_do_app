@@ -1,0 +1,25 @@
+{% extends 'tasks/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="content-section">
+        <form method="POST">
+        {% csrf_token %}
+            <fieldset>
+                <legend> Add task
+                    {% if job.task_for_today %}
+                        <a class='float-right' href="{% url 'today-tasks' %}">
+                            <span class='btn btn-secondary'><<-Go back</span>
+                        </a>
+                    {% else %}
+                        <a class='float-right' href="{% url 'week-tasks' %}">
+                            <span class='btn btn-secondary'><<-Go back</span>
+                        </a>
+                    {% endif %}
+                </legend>
+                {{ form|crispy}}
+                <button class='btn btn-info float-right' type='submit'> Add/update </button>
+            </fieldset>
+        </form>
+    </div>
+{% endblock content %}

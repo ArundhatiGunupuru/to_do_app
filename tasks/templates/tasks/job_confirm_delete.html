@@ -1,0 +1,20 @@
+{% extends 'tasks/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <form method="POST">
+    {% csrf_token %}
+        <fieldset>
+            <legend> Delete task </legend>
+            <h1>Are you sure you want to delete the task post - '{{ object.title }}'??</h1>
+        </fieldset>
+        <div>
+            <<button class='btn btn-danger' type='submit' > Delete </button>
+            {% if object.task_for_today %}
+                <a class='btn btn-secondary' href="{% url 'today-tasks' %}">Cancel</a>
+            {% else %}
+                <a class='btn btn-secondary' href="{% url 'week-tasks' %}">Cancel</a>
+            {% endif %}
+        </div>
+    </form>
+{% endblock content %}

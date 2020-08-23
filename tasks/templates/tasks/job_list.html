@@ -1,0 +1,26 @@
+{% extends 'tasks/base.html' %}
+
+{% block content %}
+    <h1 class='ml-3'> Create new tasks for the entire week -->>
+        <a title='add task' class="button-top ml-3" href="{% url 'task-create' %}">
+            <i class="fa fa-plus-circle"></i>
+        </a>
+        <a title='go to today task list' class="button-top ml-3" href="{% url 'today-tasks' %}">
+            <i class="fa fa-tags"></i>
+        </a>
+    </h1>
+    <div class="btn-group flex-wrap">
+        {% for job in jobs %}
+            {% if not job.task_for_today %}
+                <button class="button-items py-4 m-4" data-title="{{ job.content }}">
+                    {{ job.title }}
+                    <div>
+                        <a title="move" href="{% url 'task-move' job.id %}"><i class="fa fa-check-square fa-lg" aria-hidden="true"></i></a>
+                        <a title="update" href="{% url 'task-update' job.id %}"><i class="fa fa-wrench fa-lg" aria-hidden="true"></i></a>
+                        <a title="delete" href="{% url 'task-delete' job.id %}"><i class="fa fa-times fa-lg" aria-hidden="true"></i></a>
+                    </div>
+                </button>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock content %}
