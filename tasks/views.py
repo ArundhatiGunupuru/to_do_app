@@ -53,11 +53,6 @@ class TaskUpdateView(SuccessMessageMixin, UpdateView):
     success_message = 'The task was Updated'
 
 
-class TaskDeleteView(DeleteView):
-    model = Job
-    success_url = '/'
-
-
 class TodayTaskUpdateView(SuccessMessageMixin, UpdateView):
     model = Job
     fields = ['title', 'content']
@@ -65,6 +60,11 @@ class TodayTaskUpdateView(SuccessMessageMixin, UpdateView):
 
     def get_success_url(self):
         return reverse('today-tasks')
+
+
+class TaskDeleteView(DeleteView):
+    model = Job
+    success_url = '/'
 
 
 class TodayTaskDeleteView(DeleteView):
@@ -82,3 +82,14 @@ def TodayTask(request, pk):
 def WeekTask(request, pk):
     Job.objects.filter(id=pk).update(task_for_today=False)
     return redirect('today-tasks')
+
+# return HttpResponseRedirect(reverse('news-year-archive', args=(year,)))
+
+# class TaskDeleteView(DeleteView):
+#    model = Job
+
+#    def get_success_url(self, kwargs):
+#        if self.kwargs == 'week':
+#            return reverse('week-tasks')
+#        else:
+#            return reverse('today-tasks')
