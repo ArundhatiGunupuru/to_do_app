@@ -19,11 +19,15 @@ class TodayTaskListView(ListView):
     context_object_name = 'jobs'
     template_name = 'tasks/job_list_today.html'
 
+# check if template name is given in url will it work with same view
+
 
 class TaskCreateView(SuccessMessageMixin, CreateView):
     model = Job
     fields = ['title', 'content']
     success_message = 'New task was created'
+
+# still an error while creating the task it doesn't set task for today so go back goes to week task
 
 
 class TodayTaskCreateView(SuccessMessageMixin, CreateView):
@@ -61,17 +65,21 @@ class TodayTaskUpdateView(SuccessMessageMixin, UpdateView):
     def get_success_url(self):
         return reverse('today-tasks')
 
+# changed job to Job in template check it -- didn't work so gave object instead
+
 
 class TaskDeleteView(DeleteView):
     model = Job
     success_url = '/'
 
 
-class TodayTaskDeleteView(DeleteView):
+class TaskCompleteView(DeleteView):
     model = Job
 
     def get_success_url(self):
         return reverse('today-tasks')
+
+# the message is wrong for complete task check it in template
 
 
 def TodayTask(request, pk):
@@ -93,3 +101,15 @@ def WeekTask(request, pk):
 #            return reverse('week-tasks')
 #        else:
 #            return reverse('today-tasks')
+
+
+#    def get_success_url(self):
+#        if Job.objects.filter(id=pk).task_for_today == True:
+#            success_message = 'The task was deleted in today task'
+#            return reverse('week-tasks')
+#        else:
+#            success_message = 'The task was deleted in week task'
+#            return reverse('today-tasks')
+
+
+# changed object to Job in template

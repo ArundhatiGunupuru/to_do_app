@@ -15,7 +15,7 @@
                 <button class="button-items py-4 m-4" data-title="{{ job.content }}">
                     {{ job.title }}
                     <div>
-                        <a title="move" href="{% url 'task-move' job.id %}"><i class="fa fa-check-square fa-lg" aria-hidden="true"></i></a>
+                        <a title="move" href="{% url 'task-move-to-today' job.id %}"><i class="fa fa-check-square fa-lg" aria-hidden="true"></i></a>
                         <a title="update" href="{% url 'task-update' job.id %}"><i class="fa fa-wrench fa-lg" aria-hidden="true"></i></a>
                         <a title="delete" href="{% url 'task-delete' job.id %}"><i class="fa fa-times fa-lg" aria-hidden="true"></i></a>
                     </div>

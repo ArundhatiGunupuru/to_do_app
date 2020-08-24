@@ -4,7 +4,7 @@ from .views import (TaskListView,
                     TodayTaskListView,
                     TaskCreateView,
                     TodayTaskCreateView,
-                    TodayTaskDeleteView,
+                    TaskCompleteView,
                     TodayTaskUpdateView,
                     TaskUpdateView,
                     TaskDeleteView)
@@ -15,12 +15,12 @@ urlpatterns = [
     path('task/new/', TaskCreateView.as_view(), name='task-create'),
     path('task/new/today/', TodayTaskCreateView.as_view(), name='task-create2'),
     path('task/<int:pk>/', include([
-        path('move/', views.TodayTask, name='task-move'),
-        path('move2/', views.WeekTask, name='task-move2'),
+        path('move_to_today/', views.TodayTask, name='task-move-to-today'),
+        path('move_to_week/', views.WeekTask, name='task-move-to-week'),
         path('update/', TaskUpdateView.as_view(), name='task-update'),
         path('update/today/', TodayTaskUpdateView.as_view(), name='task-update2'),
         path('delete/', TaskDeleteView.as_view(), name='task-delete'),
-        path('delete/today/', TodayTaskDeleteView.as_view(), name='task-delete2'),
+        path('complete/', TaskCompleteView.as_view(), name='task-complete'),
     ])),
 ]
 

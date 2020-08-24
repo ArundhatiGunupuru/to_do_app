@@ -16,9 +16,9 @@
                 <button class="button-tday py-4 m-4" data-title="{{ job.content }}">
                     {{ job.title }}
                     <div>
-                        <a title="move" href="{% url 'task-move2' job.id %}"><i class="fa fa-check-square fa-lg" aria-hidden="true"></i></a>
+                        <a title="move" href="{% url 'task-move-to-week' job.id %}"><i class="fa fa-check-square fa-lg" aria-hidden="true"></i></a>
                         <a title="update" href="{% url 'task-update2' job.id %}"><i class="fa fa-wrench fa-lg" aria-hidden="true"></i></a>
-                        <a title="complete" href="{% url 'task-delete2' job.id %}"><i class="fa fa-thumbs-up fa-lg" aria-hidden="true"></i></a>
+                        <a title="complete" href="{% url 'task-complete' job.id %}"><i class="fa fa-thumbs-up fa-lg" aria-hidden="true"></i></a>
                     </div>
                 </button>
             {% endif %}

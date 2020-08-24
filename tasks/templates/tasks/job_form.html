@@ -7,13 +7,13 @@
         {% csrf_token %}
             <fieldset>
                 <legend> Add task
-                    {% if job.task_for_today %}
-                        <a class='float-right' href="{% url 'today-tasks' %}">
-                            <span class='btn btn-secondary'><<-Go back</span>
+                    {% if object.task_for_today %}
+                        <a class='btn btn-secondary float-right' href="{% url 'today-tasks' %}">
+                            <<-Go back
                         </a>
                     {% else %}
-                        <a class='float-right' href="{% url 'week-tasks' %}">
-                            <span class='btn btn-secondary'><<-Go back</span>
+                        <a class='btn btn-secondary float-right' href="{% url 'week-tasks' %}">
+                            <<<--Go back
                         </a>
                     {% endif %}
                 </legend>
@@ -23,3 +23,4 @@
         </form>
     </div>
 {% endblock content %}
+
