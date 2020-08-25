@@ -13,6 +13,9 @@ class Job(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('week-tasks')
+        if self.task_for_today:
+            return reverse('today-tasks')
+        else:
+            return reverse('week-tasks')
 
-# check if we can use task for tday field and then give the absolute url
+# check if we can use task for tday field and then give the absolute url -- add this comment

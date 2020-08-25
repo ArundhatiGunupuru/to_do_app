@@ -17,7 +17,7 @@
                     {{ job.title }}
                     <div>
                         <a title="move" href="{% url 'task-move-to-week' job.id %}"><i class="fa fa-check-square fa-lg" aria-hidden="true"></i></a>
-                        <a title="update" href="{% url 'task-update2' job.id %}"><i class="fa fa-wrench fa-lg" aria-hidden="true"></i></a>
+                        <a title="update" href="{% url 'task-update' job.id %}"><i class="fa fa-wrench fa-lg" aria-hidden="true"></i></a>
                         <a title="complete" href="{% url 'task-complete' job.id %}"><i class="fa fa-thumbs-up fa-lg" aria-hidden="true"></i></a>
                     </div>
                 </button>

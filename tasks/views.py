@@ -12,22 +12,16 @@ class TaskListView(ListView):
     fields = ['title', 'content']
     context_object_name = 'jobs'
 
-
-class TodayTaskListView(ListView):
-    model = Job
-    fields = ['title', 'content']
-    context_object_name = 'jobs'
-    template_name = 'tasks/job_list_today.html'
-
-# check if template name is given in url will it work with same view
+# still an error while creating the task it doesn't set task for today so go back goes to week task
+# tried sending a parameter from url to view to reduce it to one view..
+# can add variables for 2 functions...
+# add comments to all..
 
 
 class TaskCreateView(SuccessMessageMixin, CreateView):
     model = Job
     fields = ['title', 'content']
     success_message = 'New task was created'
-
-# still an error while creating the task it doesn't set task for today so go back goes to week task
 
 
 class TodayTaskCreateView(SuccessMessageMixin, CreateView):
@@ -39,33 +33,21 @@ class TodayTaskCreateView(SuccessMessageMixin, CreateView):
         form.instance.task_for_today = True
         return super().form_valid(form)
 
-    def get_success_url(self):
-        return reverse('today-tasks')
 
-    # can add variables for 2 functions...
+def move_to_week(request, pk):
+    Job.objects.filter(id=pk).update(task_for_today=False)
+    return redirect('today-tasks')
 
-    # def get_success_url(self):
-    #    return reverse('book-detail', kwargs={'pk': self.object.pk}
 
-# class TaskDetailView(DetailView):
-#    model = Job
+def move_to_today(request, pk):
+    Job.objects.filter(id=pk).update(task_for_today=True)
+    return redirect('week-tasks')
 
 
 class TaskUpdateView(SuccessMessageMixin, UpdateView):
     model = Job
     fields = ['title', 'content']
     success_message = 'The task was Updated'
-
-
-class TodayTaskUpdateView(SuccessMessageMixin, UpdateView):
-    model = Job
-    fields = ['title', 'content']
-    success_message = 'The task was Updated'
-
-    def get_success_url(self):
-        return reverse('today-tasks')
-
-# changed job to Job in template check it -- didn't work so gave object instead
 
 
 class TaskDeleteView(DeleteView):
@@ -78,19 +60,9 @@ class TaskCompleteView(DeleteView):
 
     def get_success_url(self):
         return reverse('today-tasks')
-
 # the message is wrong for complete task check it in template
 
-
-def TodayTask(request, pk):
-    Job.objects.filter(id=pk).update(task_for_today=True)
-    return redirect('week-tasks')
-
-
-def WeekTask(request, pk):
-    Job.objects.filter(id=pk).update(task_for_today=False)
-    return redirect('today-tasks')
-
+#---------------------
 # return HttpResponseRedirect(reverse('news-year-archive', args=(year,)))
 
 # class TaskDeleteView(DeleteView):
@@ -113,3 +85,44 @@ def WeekTask(request, pk):
 
 
 # changed object to Job in template
+"""
+
+    def get_object(self):
+        task_for = self.kwargs['task_for']
+        if task_for == 1:
+            def get_success_url(self):
+                return reverse('today-tasks')
+        else:
+            success_message = 'New task was created and was stored as false'
+"""
+
+"""
+class TodayTaskUpdateView(SuccessMessageMixin, UpdateView):
+    model = Job
+    fields = ['title', 'content']
+    success_message = 'The task was Updated for today'
+
+#    def get_success_url(self):
+#        return reverse('today-tasks')
+"""
+# changed job to Job in template check it -- didn't work so gave object instead
+
+"""
+class TaskDetailView(DetailView):
+    model = Job
+
+    def get_success_url(self):
+        return reverse('book-detail', kwargs={'pk': self.object.pk}
+"""
+
+"""
+class TodayTaskListView(ListView):
+    model = Job
+    fields = ['title', 'content']
+    context_object_name = 'jobs'
+    template_name = 'tasks/job_list_today.html'
+"""
+# check if template name is given in url will it work with same view
+
+#    def get_success_url(self):
+#        return reverse('today-tasks') -  create for today
