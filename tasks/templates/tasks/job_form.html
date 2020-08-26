@@ -1,3 +1,13 @@
+<!--
+    Add and update form for both today's and week's tasks.
+    view.kwargs.task_for -
+        from url to check if the request came for today's task or from week's task
+        checked while added a new task
+    object.task_for_today -
+        if this field is set can check whether it is today's task or week's task
+        checked while updating a task.
+-->
+
 {% extends 'tasks/base.html' %}
 {% load crispy_forms_tags %}
 
@@ -6,8 +16,8 @@
         <form method="POST">
         {% csrf_token %}
             <fieldset>
-                <legend> Add task
-                    {% if object.task_for_today %}
+                <legend> Task
+                    {% if view.kwargs.task_for or object.task_for_today %}
                         <a class='btn btn-secondary float-right' href="{% url 'today-tasks' %}">
                             <<-Go back
                         </a>
@@ -17,7 +27,7 @@
                         </a>
                     {% endif %}
                 </legend>
-                {{ form|crispy}}
+                {{ form|crispy }}
                 <button class='btn btn-info float-right' type='submit'> Add/update </button>
             </fieldset>
         </form>

@@ -4,17 +4,25 @@
 {% block content %}
     <form method="POST">
     {% csrf_token %}
-        <fieldset>
-            <legend> Delete task </legend>
-            <h1>Are you sure you want to delete the task post - '{{ object.title }}'??</h1>
-        </fieldset>
-        <div>
-            <<button class='btn btn-danger' type='submit' > Delete </button>
-            {% if object.task_for_today %}
+        {% if object.task_for_today %}
+            <fieldset>
+                <legend> Completed task </legend>
+                <h1> Is '{{ object.title }}' task complete?? </h1>
+                <h1> This will be deleted from the list?? </h1>
+            </fieldset>
+            <div>
+                <<button class='btn btn-danger' type='submit' > Complete </button>
                 <a class='btn btn-secondary' href="{% url 'today-tasks' %}">Cancel</a>
-            {% else %}
+            </div>
+        {% else %}
+            <fieldset>
+                <legend> Delete task </legend>
+                <h1>Are you sure you want to delete the task - '{{ object.title }}'??</h1>
+            </fieldset>
+            <div>
+                <<button class='btn btn-danger' type='submit' > Delete </button>
                 <a class='btn btn-secondary' href="{% url 'week-tasks' %}">Cancel</a>
-            {% endif %}
-        </div>
+            </div>
+        {% endif %}
     </form>
 {% endblock content %}

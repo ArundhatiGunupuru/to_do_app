@@ -2,7 +2,7 @@
 
 {% block content %}
     <h1 class='ml-3'> Create new tasks for Today >>
-        <a title='add task' class="button-top ml-3" href="{% url 'task-create2' %}">
+        <a title='add task' class="button-top ml-3" href="{% url 'today-task-create' 1 %}">
             <i class="fa fa-plus-circle"></i>
         </a>
         <a title='go to week task list' class="button-top ml-3" href="{% url 'week-tasks' %}">
@@ -10,7 +10,7 @@
         </a>
     </h1>
     <div class="btn-group flex-wrap">
-        <!-- if statement for today tasks -->
+        <!-- if statement for today's tasks -->
         {% for job in jobs %}
             {% if job.task_for_today %}
                 <button class="button-tday py-4 m-4" data-title="{{ job.content }}">

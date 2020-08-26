@@ -1,7 +1,9 @@
+# Job model having fields - title, content, task_for_today
+# 'get_absolute_url' - checks for "task_for_today" field and return the url accordingly.
+
+
 from django.db import models
 from django.shortcuts import reverse
-
-# these are the tasks for the entire week
 
 
 class Job(models.Model):
@@ -17,5 +19,3 @@ class Job(models.Model):
             return reverse('today-tasks')
         else:
             return reverse('week-tasks')
-
-# check if we can use task for tday field and then give the absolute url -- add this comment

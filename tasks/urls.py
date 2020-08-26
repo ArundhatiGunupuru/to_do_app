@@ -1,7 +1,21 @@
+"""tasks-app URL Configuration
+
+The `urlpatterns` list routes URLs to views.
+Function views -
+    to move a task from today's list to week's list and vice versa
+    we used move_to_today and move_to_week function in views.
+Class-based views
+    same list view with different template names for today's and week's task.
+    create, update and delete views for both today's and week's tasks.
+    used a single url ans view for updating tasks.
+Including another URLconf
+    include function has been used to remove redundancy
+"""
+
 from django.urls import path, include
 from . import views
 from .views import (TaskListView,
-                    TaskCreateView,
+                    WeekTaskCreateView,
                     TodayTaskCreateView,
                     TaskCompleteView,
                     TaskUpdateView,
@@ -10,8 +24,8 @@ from .views import (TaskListView,
 urlpatterns = [
     path('', TaskListView.as_view(), name='week-tasks'),
     path('task/', TaskListView.as_view(template_name='tasks/job_list_today.html'), name='today-tasks'),
-    path('task/new/', TaskCreateView.as_view(), name='task-create'),
-    path('task/new/today/', TodayTaskCreateView.as_view(), name='task-create2'),
+    path('task/new/week/<int:task_for>/', WeekTaskCreateView.as_view(), name='week-task-create'),
+    path('task/new/today/<int:task_for>/', TodayTaskCreateView.as_view(), name='today-task-create'),
     path('task/<int:pk>/', include([
         path('move_to_today/', views.move_to_today, name='task-move-to-today'),
         path('move_to_week/', views.move_to_week, name='task-move-to-week'),
@@ -20,15 +34,3 @@ urlpatterns = [
         path('complete/', TaskCompleteView.as_view(), name='task-complete'),
     ])),
 ]
-
-# remove redundancy on the last
-#path('delete/<str:week>/', TaskDeleteView.as_view(), name='task-delete'),
-#path('delete/<str:today>/', TodayTaskDeleteView.as_view(), name='task-delete2'),
-""" removed
-# path('task/', TodayTaskListView.as_view(), name='today-tasks'), template_name = 'tasks/job_list_today.html'
-#path('update/today/', TodayTaskUpdateView.as_view(), name='task-update2'),
-                    # TodayTaskListView,
-                    # TodayTaskUpdateView,
-changed the code to remove extra list and update view for today and
-instead added logic use the same view for both week and today...
-"""
